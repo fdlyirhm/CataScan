@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CataScan - Deteksi Katarak</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="page-glow glow-a"></div>
+    <div class="page-glow glow-b"></div>
+
+    <header class="topbar">
+        <a href="#home" class="brand">
+            <div class="brand-mark">
+                <span></span>
+            </div>
+            <div>
+                <h1>CataScan</h1>
+                <p>Deteksi awal katarak berbasis kecerdasan buatan</p>
+            </div>
+        </a>
+
+        <button class="hamburger" id="hamburger" type="button" aria-label="Buka menu">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#deteksi">Deteksi</a>
+            <a href="#kamera">Kamera</a>
+            <a href="#riwayat">Riwayat</a>
+            <a href="#bantuan">Bantuan</a>
+            <a href="#edukasi">Edukasi</a>
+        </nav>
+    </header>
+
+    <main id="home">
+        <section class="hero-shell">
+            <div class="hero-copy">
+                <div class="eyebrow">
+                    <span class="pulse-dot"></span>
+                    CataScan Screening
+                </div>
+                <h2>Screening katarak yang cepat, jelas, dan mudah digunakan.</h2>
+                <p>
+                    Ambil foto mata, jalankan AI, lihat confidence, tingkat risiko,
+                    kualitas foto, laporan PDF, riwayat, suara hasil, dan bantuan medis terdekat.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#deteksi">Mulai Deteksi</a>
+                    <a class="btn btn-ghost" href="#kamera">Buka Kamera</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="phone-card">
+                    <div class="phone-camera"></div>
+                    <div class="scan-orbit">
+                        <div class="eye-visual">
+                            <div class="iris"></div>
+                        </div>
+                    </div>
+                    <div class="mini-result">
+                        <span>AI Confidence</span>
+                        <strong>87%</strong>
+                        <div class="mini-bar"><i></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-stats glass-panel">
+            <div class="stat-item">
+                <strong id="statTotal">0</strong>
+                <span>Total Pemeriksaan</span>
+            </div>
+            <div class="stat-item">
+                <strong id="statDetected">0</strong>
+                <span>Terdeteksi</span>
+            </div>
+            <div class="stat-item">
+                <strong id="statHigh">0</strong>
+                <span>Risiko Tinggi</span>
+            </div>
+            <div class="stat-item">
+                <strong id="statAvg">0%</strong>
+                <span>Rata-rata Confidence</span>
+            </div>
+        </section>
+
+        <section class="feature-strip">
+            <article>
+                <span>📷</span>
+                <h3>Upload & Kamera</h3>
+                <p>Capture kamera, putar kamera Android, dan matikan kamera kapan saja.</p>
+            </article>
+            <article>
+                <span>🔊</span>
+                <h3>Voice Result</h3>
+                <p>Hasil dapat dibacakan otomatis dengan toggle suara.</p>
+            </article>
+            <article>
+                <span>📍</span>
+                <h3>Maps Assist</h3>
+                <p>Cari dokter mata atau rumah sakit mata terdekat dari lokasi pengguna.</p>
+            </article>
+        </section>
+
+        <section id="deteksi" class="section-grid">
+            <div class="section-intro sticky-intro">
+                <span class="section-kicker">Upload Detection</span>
+                <h2>Analisis gambar mata</h2>
+                <p>
+                    Upload gambar mata. Sistem mengecek kualitas foto,
+                    menjalankan model, lalu menampilkan hasil dengan visual yang mudah dipahami.
+                </p>
+
+                <div class="tip-card">
+                    <h3>Tips foto</h3>
+                    <ul>
+                        <li>Mata terlihat jelas</li>
+                        <li>Cahaya cukup</li>
+                        <li>Gambar tidak buram</li>
+                        <li>Fokus pada area mata</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="work-card">
+                <div class="sound-row">
+                    <label class="toggle">
+                        <input type="checkbox" id="soundToggle" checked>
+                        <span class="toggle-ui"></span>
+                        <b>Suara hasil aktif</b>
+                    </label>
+                    <button class="btn btn-soft" id="testVoice" type="button">Tes Suara</button>
+                </div>
+
+                <form id="uploadForm" class="drop-zone">
+                    <div class="drop-icon">⬆️</div>
+                    <h3>Upload foto mata</h3>
+                    <p>JPG, JPEG, PNG, atau WEBP</p>
+                    <input type="file" id="imageInput" name="image" accept="image/*" required>
+                    <button class="btn btn-primary" type="submit">Analisis Sekarang</button>
+                </form>
+
+                <div id="loading" class="loading hidden">
+                    <div class="loader-ring"></div>
+                    <div>
+                        <b>AI sedang menganalisis...</b>
+                        <span>Mengecek kualitas foto dan pola katarak</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="kamera" class="camera-section glass-panel">
+            <div class="section-intro">
+                <span class="section-kicker">Live Camera</span>
+                <h2>Kamera langsung</h2>
+                <p>Gunakan kamera perangkat. Pada Android, tombol putar kamera dapat berpindah kamera depan/belakang.</p>
+            </div>
+
+            <div class="camera-stage">
+                <div class="camera-frame">
+                    <video id="video" autoplay playsinline></video>
+                    <div class="eye-guide"></div>
+                    <div class="camera-hint">Posisikan mata di area panduan</div>
+                </div>
+                <canvas id="canvas" class="hidden"></canvas>
+
+                <div class="camera-controls">
+                    <button class="btn btn-soft" id="startCamera" type="button">Buka Kamera</button>
+                    <button class="btn btn-soft" id="switchCamera" type="button">Putar Kamera</button>
+                    <button class="btn btn-danger" id="stopCamera" type="button">Matikan Kamera</button>
+                    <button class="btn btn-primary" id="capturePhoto" type="button">Ambil & Analisis</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="resultSection" class="result-section hidden">
+            <div class="section-intro center">
+                <span class="section-kicker">AI Result</span>
+                <h2>Hasil analisis</h2>
+            </div>
+
+            <div id="resultSummary" class="result-summary"></div>
+
+            <div class="confidence-card">
+                <div class="confidence-top">
+                    <span>Confidence Meter</span>
+                    <strong id="confidenceText">0%</strong>
+                </div>
+                <div class="confidence-bar">
+                    <div id="confidenceFill"></div>
+                </div>
+            </div>
+
+            <div class="compare-grid">
+                <article>
+                    <div class="image-title">Gambar Asli</div>
+                    <img id="uploadedPreview" src="" alt="Gambar asli">
+                </article>
+                <article>
+                    <div class="image-title">Hasil Deteksi AI</div>
+                    <img id="resultPreview" src="" alt="Hasil deteksi">
+                </article>
+            </div>
+
+            <div id="detectionDetails" class="details"></div>
+
+            <div class="result-actions">
+                <a id="downloadReport" class="btn btn-primary" href="#" target="_blank">Download PDF</a>
+                <button class="btn btn-soft" type="button" onclick="findNearby('dokter mata')">Cari Dokter Mata</button>
+            </div>
+        </section>
+
+        <section id="riwayat" class="history-section glass-panel">
+            <div class="section-header-row">
+                <div>
+                    <span class="section-kicker">History</span>
+                    <h2>Riwayat pemeriksaan</h2>
+                    <p>Riwayat tersimpan lokal di aplikasi dan bisa dihapus.</p>
+                </div>
+                <button class="btn btn-danger" id="clearHistory" type="button">Hapus Semua Riwayat</button>
+            </div>
+
+            <div id="historyList" class="history-list"></div>
+        </section>
+
+        <section id="bantuan" class="maps-section">
+            <div class="maps-card">
+                <span class="section-kicker">Medical Help</span>
+                <h2>Cari bantuan medis terdekat</h2>
+                <p>Gunakan lokasi perangkat untuk membuka pencarian Google Maps.</p>
+                <div class="maps-actions">
+                    <button class="btn btn-primary" onclick="findNearby('dokter mata')">Dokter Mata</button>
+                    <button class="btn btn-primary" onclick="findNearby('klinik mata')">Klinik Mata</button>
+                    <button class="btn btn-primary" onclick="findNearby('rumah sakit mata')">Rumah Sakit Mata</button>
+                </div>
+                <p id="locationStatus" class="muted"></p>
+            </div>
+        </section>
+
+        <section id="edukasi" class="education-section">
+            <div class="section-intro center">
+                <span class="section-kicker">Education</span>
+                <h2>Edukasi singkat katarak</h2>
+            </div>
+
+            <div class="edu-grid">
+                <article>
+                    <h3>Apa itu katarak?</h3>
+                    <p>Katarak adalah kondisi ketika lensa mata menjadi keruh sehingga penglihatan tampak buram.</p>
+                </article>
+                <article>
+                    <h3>Gejala umum</h3>
+                    <p>Penglihatan buram, silau, sulit melihat malam hari, dan warna terlihat memudar.</p>
+                </article>
+                <article>
+                    <h3>Mengapa hasil bisa salah?</h3>
+                    <p>Foto gelap, buram, mata tidak jelas, atau model masih tahap pengembangan.</p>
+                </article>
+                <article>
+                    <h3>Privasi</h3>
+                    <p>Gambar digunakan untuk proses deteksi pada prototype dan bukan rekam medis resmi.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="disclaimer-card">
+            <h3>Catatan medis</h3>
+            <p>
+                Hasil aplikasi ini adalah prediksi AI untuk screening awal, bukan diagnosis medis.
+                Untuk keputusan medis, konsultasikan dengan dokter spesialis mata.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>CataScan • CataScan Screening</p>
+    </footer>
+
+    <div id="toast" class="toast hidden"></div>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
